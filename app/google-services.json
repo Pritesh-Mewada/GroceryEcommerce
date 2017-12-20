@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "633250418622",
+    "project_id": "grocery-69826"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633250418622:android:c98c96e25bebb029",
+        "android_client_info": {
+          "package_name": "graphysis.groceryecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "633250418622-2eg8ckqucb956v5l04v0h9aumj13ofdi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "graphysis.groceryecommerce",
+            "certificate_hash": "765e2ba40e9714e0bd85182b57ea9f72312f59bf"
+          }
+        },
+        {
+          "client_id": "633250418622-q9hj5un98ga1t0ujl96gkok7gu0ht9b5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFc1rujVHcZZ5bC9yDf9Xs88EhvVHTL-k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
