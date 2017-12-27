@@ -190,7 +190,8 @@ class SignInActivity : AppCompatActivity() {
                         var json:JSONObject = JSONObject(response)
                         if( json.get("status").equals("Success")){
                             startActivity(Intent(applicationContext,MainActivity::class.java));
-                            StoreID(JSONObject(json.get("data").toString()).get("id").toString());
+                            var dataObject = JSONObject(json.get("data").toString());
+                            StoreID(dataObject.get("id").toString(),email,dataObject.get("name").toString());
                             finish()
                         }
                     }
@@ -222,7 +223,7 @@ class SignInActivity : AppCompatActivity() {
                         var json:JSONObject = JSONObject(response)
                         if(json.get("status").equals("Success")){
                             startActivity(Intent(applicationContext,MainActivity::class.java));
-                            StoreID(JSONObject(json.get("data").toString()).get("id").toString());
+                            StoreID(JSONObject(json.get("data").toString()).get("id").toString(),email,username);
                             finish()
                         }
                     }
@@ -246,17 +247,19 @@ class SignInActivity : AppCompatActivity() {
     }
 
 
-    fun StoreID(id:String){
-        var sharedPref:SharedPreferences = getPreferences(Context.MODE_PRIVATE);
+    fun StoreID(id:String,email: String,username: String){
+        var sharedPref:SharedPreferences = getSharedPreferences("User",Context.MODE_PRIVATE);
         var  editor:SharedPreferences.Editor = sharedPref.edit();
         editor.putString("Id",id);
+        editor.putString("Email",email);
+        editor.putString("Username",username);
         Log.d("Google","Id insert:  "+id);
         editor.commit();
     }
 
 
     fun getID():Boolean{
-        var sharedPref:SharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        var sharedPref:SharedPreferences = getSharedPreferences("User",Context.MODE_PRIVATE);
 
         if (sharedPref.getString("Id", "default_value").equals("default_value")) return false else return true;
     }

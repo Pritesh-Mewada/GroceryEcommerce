@@ -1,6 +1,9 @@
 package graphysis.groceryecommerce
 
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -12,14 +15,23 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.facebook.login.LoginManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import org.json.JSONException
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -38,19 +50,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         request = Volley.newRequestQueue(applicationContext);
 
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+
         nav_view.setNavigationItemSelectedListener(this)
 
         getDataInflate()
+        setNavView(nav_view)
 
     }
 
@@ -73,7 +83,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.sign_out ->{
+                clearData();
+                return true
+            }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -95,17 +109,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.vegetable -> {
                 fragment = VegetableScreenFragment();
             }
-            R.id.nav_manage -> {
-
+            R.id.user_profile -> {
+                fragment = OrdersFragment();
             }
-            R.id.nav_share -> {
-
+            R.id.user_orders -> {
+                fragment = CheckOutFragment();
             }
             R.id.nav_send -> {
 
             }
         }
-        fragmentTransaction?.replace(R.id.show_all_fragments,fragment);
+        fragmentTransaction?.replace(R.id.show_all_fragments,fragment)?.addToBackStack(null);
         fragmentTransaction?.commit();
 
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -126,6 +140,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun getDataInflate(){
 
         if(DataStorageClass.fruits.length() != 0 && DataStorageClass.vegetable.length() != 0 ){
+            getMainScreen()
             return
         }
 
@@ -151,6 +166,49 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
 
         request.add(jsonArrayRequest);
+
+    }
+
+    fun clearData(){
+
+        if(LoginManager.getInstance()!=null){
+            LoginManager.getInstance().logOut();
+            changeScreen()
+            return
+        }else if(GoogleSignIn.getLastSignedInAccount(this) !=null){
+            var googleSignInClient :GoogleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
+
+            googleSignInClient.signOut().addOnCompleteListener(this, object:OnCompleteListener<Void>{
+                override fun onComplete(p0: Task<Void>) {
+                    changeScreen()
+                }
+            })
+
+            return
+        }
+
+        changeScreen();
+
+    }
+
+    fun changeScreen(){
+        var sharedPref: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
+        var  editor: SharedPreferences.Editor = sharedPref.edit();
+        editor.clear();
+        editor.commit();
+        var intent:Intent = Intent(applicationContext,SignInActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+
+    fun setNavView(nav:NavigationView){
+
+        var header:View = nav.getHeaderView(0);
+        var sharedPrefrence: SharedPreferences = getSharedPreferences("User",Context.MODE_PRIVATE)!!;
+        header.findViewById<TextView>(R.id.name_initial_nav).text  = sharedPrefrence.getString("Username", "Default").get(0).toString().toUpperCase();
+        header.findViewById<TextView>(R.id.user_name_nav).text=sharedPrefrence.getString("Username", "Default").toString().capitalize();
+        header.findViewById<TextView>(R.id.user_email_nav).text=sharedPrefrence.getString("Email", "Default").toString().capitalize()
 
     }
 

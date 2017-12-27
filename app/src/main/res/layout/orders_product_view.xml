@@ -37,7 +37,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="-10dp"
                     >
                     <TextView
@@ -57,34 +56,42 @@
                         android:layout_marginRight="10dp"
                         />
                 </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amount:Rs 21"
+                    android:id="@+id/product_price"
+                    style="@style/subheadings"/>
 
             </LinearLayout>
 
         </LinearLayout>
-        <LinearLayout
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"></View>
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="-15dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs. 21"
-                style="@style/headings"
-                android:layout_weight="1"
+            style="@style/subheadings"
+            android:gravity="center_horizontal"
+            android:id="@+id/productDate"
+            android:text="OrderPlaced Successfully"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"></View>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/headings"
+            android:gravity="center_horizontal"
+            android:id="@+id/product_status"
+            android:text="OrderPlaced Successfully"
+            />
 
-                android:id="@+id/product_price"
-                />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add"
-                style="@style/button"
-                android:layout_marginRight="10dp"
-                android:id="@+id/product_button"
-                />
-        </LinearLayout>
+
     </LinearLayout>
 
 

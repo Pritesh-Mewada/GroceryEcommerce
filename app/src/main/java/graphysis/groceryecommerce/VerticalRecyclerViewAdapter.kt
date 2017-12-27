@@ -20,9 +20,14 @@ import org.json.JSONObject
  * Created by pritesh on 17/12/17.
  */
 class VerticalRecyclerViewAdapter(val json: JSONArray, val context: Context) : RecyclerView.Adapter<VerticalRecyclerViewAdapter.ViewHolder>() {
+    var dataStorageClass:DataStorageClass ;
+
+    init {
+        dataStorageClass = DataStorageClass(context,"Order",2);
+    }
+
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         var item: JSONObject = json.get(position) as JSONObject;
-
         //setting views
 
         holder?.productName?.text = item.get("name").toString().capitalize()
@@ -34,6 +39,10 @@ class VerticalRecyclerViewAdapter(val json: JSONArray, val context: Context) : R
         holder?.cardview?.setOnClickListener(View.OnClickListener {
             DataStorageClass.setItemForFullViewClass(json.get(position) as JSONObject);
             goToFullView(FullProductDescriptionFragment())
+        })
+
+        holder?.productAdd?.setOnClickListener(View.OnClickListener {
+            dataStorageClass.AddOrderID(item.get("id").toString())
         })
     }
 

@@ -37,7 +37,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="-10dp"
                     >
                     <TextView
@@ -57,7 +56,46 @@
                         android:layout_marginRight="10dp"
                         />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quantity:"
+                        style="@style/subheadings"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center_vertical"
+                        />
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_add_circle_outline_black_24dp"
+                        android:id="@+id/increment_quantity"/>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        style="@style/subheadings"
+                        android:id="@+id/quantity"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_remove_circle_outline_black_24dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:id="@+id/decrement_quantity"/>
+
+
+
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -73,16 +111,16 @@
                 android:text="Rs. 21"
                 style="@style/headings"
                 android:layout_weight="1"
-
                 android:id="@+id/product_price"
                 />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add"
+                android:text="Remove"
                 style="@style/button"
+                android:layout_weight="1"
                 android:layout_marginRight="10dp"
-                android:id="@+id/product_button"
+                android:id="@+id/product_remove"
                 />
         </LinearLayout>
     </LinearLayout>

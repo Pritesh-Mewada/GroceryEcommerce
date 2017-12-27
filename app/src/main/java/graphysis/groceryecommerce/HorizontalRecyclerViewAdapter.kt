@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
@@ -21,6 +20,11 @@ import org.json.JSONObject
  * Created by pritesh on 17/12/17.
  */
 class HorizontalRecyclerViewAdapter(val json:JSONArray,val context:Context) : RecyclerView.Adapter<HorizontalRecyclerViewAdapter.ViewHolder>() {
+    var dataStorageClass:DataStorageClass ;
+
+    init {
+        dataStorageClass = DataStorageClass(context,"Order",2);
+    }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         var item:JSONObject = json.get(position) as JSONObject;
@@ -36,6 +40,10 @@ class HorizontalRecyclerViewAdapter(val json:JSONArray,val context:Context) : Re
         holder?.cardview?.setOnClickListener(View.OnClickListener {
             DataStorageClass.setItemForFullViewClass(json.get(position) as JSONObject);
             goToFullView(FullProductDescriptionFragment())
+        })
+
+        holder?.productAdd?.setOnClickListener(View.OnClickListener {
+            dataStorageClass.AddOrderID(item.get("id").toString())
         })
 
 

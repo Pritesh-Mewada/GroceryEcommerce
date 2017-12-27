@@ -19,13 +19,6 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:text="Filters"
-            style="@style/button"
-            android:id="@+id/product_filter"
-            android:layout_weight="1"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="50dp"
             android:text="Check Out"
             style="@style/button"
             android:id="@+id/product_checkout"

@@ -73,7 +73,7 @@ class MainScreenFragment: Fragment() {
 
     fun initAdapter(){
         adapterFruit = HorizontalRecyclerViewAdapter(DataStorageClass.fruits, context!!);
-        adapterVegetable = HorizontalRecyclerViewAdapter(DataStorageClass.fruits, context!!);
+        adapterVegetable = HorizontalRecyclerViewAdapter(DataStorageClass.vegetable, context!!);
         vegetableRecycle?.adapter=adapterVegetable;
         fruitRecycle?.adapter=adapterFruit;
 

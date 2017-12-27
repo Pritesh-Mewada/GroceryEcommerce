@@ -17,21 +17,25 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Vegetables" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/user_profile"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Profile" />
+        <item
+            android:id="@+id/user_orders"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Orders" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Reach us">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Developers" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="About us" />
         </menu>
     </item>
 

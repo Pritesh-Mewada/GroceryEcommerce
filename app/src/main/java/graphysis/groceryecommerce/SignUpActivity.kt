@@ -74,7 +74,7 @@ class SignUpActivity : AppCompatActivity() {
                         var json:JSONObject = JSONObject(response)
                         if( json.get("status").equals("Success")){
                             startActivity(Intent(applicationContext,MainActivity::class.java));
-                            StoreID(JSONObject(json.get("data").toString()).get("id").toString());
+                            StoreID(JSONObject(json.get("data").toString()).get("id").toString(),email,user);
                             finish()
                         }
                     }
@@ -98,11 +98,14 @@ class SignUpActivity : AppCompatActivity() {
         requestQueue.add(postRequest);
     }
 
-    fun StoreID(id:String){
+    fun StoreID(id:String,email: String,username: String){
         var sharedPref: SharedPreferences = getPreferences(Context.MODE_PRIVATE);
         var  editor: SharedPreferences.Editor = sharedPref.edit();
         editor.putString("Id",id);
         Log.d("Google","Id insert:  "+id);
+        editor.putString("Email",email);
+        editor.putString("Username",username);
+
         editor.commit();
     }
 
