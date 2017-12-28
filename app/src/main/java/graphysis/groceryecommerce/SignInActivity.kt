@@ -37,15 +37,10 @@ class SignInActivity : AppCompatActivity() {
 
     lateinit var gso:GoogleSignInOptions;
     lateinit var mGoogleSignInClient:GoogleSignInClient;
-    lateinit var googleSignInButton:SignInButton;
     lateinit var callbackManager :CallbackManager;
     lateinit var loginButton:LoginButton;
-    lateinit var signUpText:TextView;
     lateinit var requestQueue:RequestQueue;
 
-    lateinit var email:TextInputEditText;
-    lateinit var password:TextInputEditText;
-    lateinit var loginCustom:Button;
     var RC_SIGN_IN:Int;
     val TAG:String;
     val url:String;
@@ -69,27 +64,25 @@ class SignInActivity : AppCompatActivity() {
         requestQueue = Volley.newRequestQueue(this)
 
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        googleSignInButton = findViewById(R.id.google_sign_in) ;
 
-        googleSignInButton.setOnClickListener(View.OnClickListener {
+        google_sign_in.setOnClickListener(View.OnClickListener {
             var  signInIntent = mGoogleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
         })
 
         callbackManager = CallbackManager.Factory.create();
 
-        signUpText = findViewById(R.id.signup_text);
-
-        signUpText.setOnClickListener {
+        signup_text.setOnClickListener {
             var intent:Intent = Intent(applicationContext,SignUpActivity::class.java);
             startActivity(intent)
         }
 
 
         loginButton = findViewById<View>(R.id.login_button) as LoginButton
-        loginButton.setReadPermissions("email")
+        login_button.setReadPermissions("email")
         // If using in a fragment
 
 
@@ -124,16 +117,11 @@ class SignInActivity : AppCompatActivity() {
                     }
                 });
 
+        custom_login.setOnClickListener {
+            var validity:Boolean = email_id.text.toString().isEmpty() && password.text.toString().isEmpty()
 
-        email = findViewById(R.id.email_id) ;
-        password = findViewById(R.id.password)
-        loginCustom=findViewById(R.id.custom_login);
-
-        loginCustom.setOnClickListener {
-            var validity:Boolean = email.text.toString().isEmpty() && password.text.toString().isEmpty()
-
-            if(!validity && verifyEmail(email.text.toString())){
-                customLogin(url,email.text.toString(),password.text.toString());
+            if(!validity && verifyEmail(email_id.text.toString())){
+                customLogin(url,email_id.text.toString(),password.text.toString());
             }
 
         }

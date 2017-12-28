@@ -17,19 +17,17 @@ import kotlinx.android.synthetic.main.vertical_product_layout.*
  * Created by pritesh on 17/12/17.
  */
 class FruitScreenFragment: Fragment() {
-    var fruitRecycle: RecyclerView?=null;
     lateinit var adapter:VerticalRecyclerViewAdapter;
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fruitRecycle = view?.findViewById(R.id.product_view_vertical_recycle);
 
         adapter = VerticalRecyclerViewAdapter(DataStorageClass.fruits,context!!)
-        fruitRecycle?.adapter=adapter;
 
-        fruitRecycle?.layoutManager = LinearLayoutManager(context);
+        product_view_vertical_recycle.adapter=adapter;
+        product_view_vertical_recycle.layoutManager = LinearLayoutManager(context);
 
         product_checkout.setOnClickListener {
             goToFullView(CheckOutFragment())

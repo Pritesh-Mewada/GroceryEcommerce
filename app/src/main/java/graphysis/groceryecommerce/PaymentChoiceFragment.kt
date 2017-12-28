@@ -46,8 +46,6 @@ class PaymentChoiceFragment:Fragment() {
             postOrders()
         }
 
-
-
     }
 
     fun postOrders(){

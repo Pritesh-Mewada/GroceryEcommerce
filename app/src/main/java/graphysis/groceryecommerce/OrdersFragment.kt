@@ -18,6 +18,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.orders_fragment_layout.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -25,10 +26,6 @@ import org.json.JSONObject
  * Created by pritesh on 25/12/17.
  */
 class OrdersFragment: Fragment() {
-    lateinit var orderRecycle: RecyclerView;
-    lateinit var userInitial: TextView;
-    lateinit var userName: TextView;
-    lateinit var userEmail: TextView;
     lateinit var orderRecyclerAdapter: OrderRecyclerViewAdapter;
     lateinit var requestQueue: RequestQueue;
     var url:String;
@@ -42,11 +39,6 @@ class OrdersFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        userInitial = view.findViewById(R.id.user_initial);
-        userName = view.findViewById(R.id.user_name);
-        userEmail = view.findViewById(R.id.user_email);
-        orderRecycle = view.findViewById(R.id.orders_recyclerview);
         requestQueue = Volley.newRequestQueue(context)
 
         initTextView();
@@ -54,10 +46,11 @@ class OrdersFragment: Fragment() {
     }
 
     fun initTextView() {
+
         var sharedPrefrence: SharedPreferences = activity?.getSharedPreferences("User",Context.MODE_PRIVATE)!!;
-        userInitial.text = sharedPrefrence.getString("Username", "Default").get(0).toString().toUpperCase();
-        userName.text=sharedPrefrence.getString("Username", "Default").toString().capitalize();
-        userEmail.text=sharedPrefrence.getString("Email", "Default").toString().capitalize()
+        user_initial.text = sharedPrefrence.getString("Username", "Default").get(0).toString().toUpperCase();
+        user_name.text=sharedPrefrence.getString("Username", "Default").toString().capitalize();
+        user_email.text=sharedPrefrence.getString("Email", "Default").toString().capitalize()
     }
 
 
@@ -72,8 +65,8 @@ class OrdersFragment: Fragment() {
                         var json: JSONObject = JSONObject(response)
                         if(json.get("status").equals("Success")){
                             orderRecyclerAdapter = OrderRecyclerViewAdapter(json.get("data") as JSONArray,context!!);
-                            orderRecycle.adapter = orderRecyclerAdapter;
-                            orderRecycle.layoutManager = LinearLayoutManager(context);
+                            orders_recyclerview.adapter = orderRecyclerAdapter;
+                            orders_recyclerview.layoutManager = LinearLayoutManager(context);
 
                         }
                     }

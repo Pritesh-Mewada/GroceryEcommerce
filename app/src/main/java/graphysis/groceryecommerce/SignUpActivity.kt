@@ -18,15 +18,11 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 
 import com.android.volley.VolleyError
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.json.JSONObject
 
 
 class SignUpActivity : AppCompatActivity() {
-    lateinit var email:TextInputEditText;
-    lateinit var password:TextInputEditText;
-    lateinit var rpassword:TextInputEditText;
-    lateinit var signup:Button;
-    lateinit var name:TextInputEditText;
     lateinit var requestQueue:RequestQueue;
     var url:String;
     init {
@@ -36,22 +32,15 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        signup =    findViewById(R.id.signup);
-        password =  findViewById(R.id.password);
-        rpassword = findViewById(R.id.rpassword);
-        email = findViewById(R.id.email_id);
-        name =findViewById(R.id.display_name);
-
         requestQueue = Volley.newRequestQueue(applicationContext);
-
         signup.setOnClickListener(View.OnClickListener {
 
-            var validity : Boolean = password.text.toString().isEmpty() && name.text.toString().isEmpty();
+            var validity : Boolean = password.text.toString().isEmpty() && display_name.text.toString().isEmpty();
 
             var match :Boolean = password.text.toString().equals(rpassword.text.toString());
-            if(verifyEmail(email.text.toString()) && !validity && match){
+            if(verifyEmail(email_id.text.toString()) && !validity && match){
                 Toast.makeText(applicationContext,"Ready to signup",Toast.LENGTH_LONG).show();
-                signUp(url,name.text.toString(),email.text.toString(),password.text.toString());
+                signUp(url,display_name.text.toString(),email_id.text.toString(),password.text.toString());
             }
 
 
