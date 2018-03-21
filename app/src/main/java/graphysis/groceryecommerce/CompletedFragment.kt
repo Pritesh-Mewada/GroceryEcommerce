@@ -26,7 +26,7 @@ class CompletedFragment :Fragment() {
     lateinit var orderRecyclerAdapter:OrderRecyclerViewAdapter;
     var url:String;
     init {
-        url="http://shopgondia.in/gondia_php/orders.php"
+        url="http://shopgondia.in/gondia_php/orders_completed.php"
 
     }
 

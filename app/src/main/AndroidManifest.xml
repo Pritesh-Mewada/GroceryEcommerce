@@ -3,6 +3,7 @@
     package="graphysis.groceryecommerce">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -40,13 +41,24 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".SignInActivity"/>
+        <activity android:name=".SignInActivity" />
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".FullScreenImage" />
+        <activity android:name=".NoNetworkDetected"></activity>
 
+        <receiver android:name=".ListenNetworkChange"
+            android:enabled="true">
+            <intent-filter >
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"></action>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"></action>
+                <action android:name="android.net.wifi.STATE_CHANGE"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

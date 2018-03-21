@@ -1,6 +1,8 @@
 package graphysis.groceryecommerce
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
@@ -13,8 +15,6 @@ import android.widget.Toast
 fun Context.ShowToast(text:String){
     Toast.makeText(this,text,Toast.LENGTH_SHORT).show()
 }
-
-
 fun Context.goToFullView(fragment: Fragment){
     var fragmentManager =( this  as FragmentActivity).supportFragmentManager;
     var fragmentTransaction: FragmentTransaction? = fragmentManager.beginTransaction();
@@ -22,6 +22,19 @@ fun Context.goToFullView(fragment: Fragment){
     fragmentTransaction?.commit();
 }
 
+fun Context.CheckOnline ():Boolean{
+    var manager :ConnectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager;
+
+    if(manager !=null){
+        var netinfo:NetworkInfo  = manager.activeNetworkInfo;
+        return (netinfo!=null && netinfo.isConnected);
+    }else{
+        return false
+    }
+
+
+
+}
 
 
 

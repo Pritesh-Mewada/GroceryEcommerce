@@ -1,7 +1,9 @@
 package graphysis.groceryecommerce
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -38,9 +40,10 @@ class OrderRecyclerViewAdapter(val orders:JSONArray,val context:Context): Recycl
         holder?.productDate?.text = format.format(date);
 
         holder?.productImage?.setOnClickListener({
-            var bundle:Bundle = Bundle();
-            bundle.putString("url",item.get("img").toString());
-            context.goToFullView(FullScreenImageFragment());
+            var intent = Intent(context,FullScreenImage::class.java);
+            intent.putExtra("url",item.get("img").toString());
+            (context as FragmentActivity).startActivity(intent)
+//            context.goToFullView(FullScreenImageFragment());
 
         })
 
@@ -52,9 +55,7 @@ class OrderRecyclerViewAdapter(val orders:JSONArray,val context:Context): Recycl
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         var view :View = LayoutInflater.from(parent?.context).inflate(R.layout.orders_product_view,parent,false)
-
         return ViewHolder(view);
-
     }
 
     class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
