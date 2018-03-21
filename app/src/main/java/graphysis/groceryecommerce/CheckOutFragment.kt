@@ -38,15 +38,12 @@ class CheckOutFragment: Fragment() {
         checkoutRecycle.adapter=checkoutRecycleAdapter
 
         checkoutFragmentButton.setOnClickListener {
+            var mAddressDetailFragment:AddressDetailFragment = AddressDetailFragment();
 
-            Log.d("Google",DataStorageClass.getDataForCheckout().toString())
-
-            var mPaymentChoiceFragment:PaymentChoiceFragment = PaymentChoiceFragment();
             var bundle:Bundle = Bundle();
             bundle.putString("price",totalPrice.text.toString());
-            mPaymentChoiceFragment.arguments = bundle;
-
-            goToFullView(mPaymentChoiceFragment);
+            mAddressDetailFragment.arguments = bundle;
+            goToFullView(mAddressDetailFragment);
         }
     }
 

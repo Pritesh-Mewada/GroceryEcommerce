@@ -11,5 +11,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="facebook_app_id">1705897652775439</string>
     <string name="fb_login_protocol_scheme">fb1705897652775439</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
 
 </resources>

@@ -19,7 +19,7 @@ import org.json.JSONObject
 /**
  * Created by pritesh on 17/12/17.
  */
-class HorizontalRecyclerViewAdapter(val json:JSONArray,val context:Context) : RecyclerView.Adapter<HorizontalRecyclerViewAdapter.ViewHolder>() {
+class HorizontalRecyclerViewAdapter(val json:JSONArray,val context:Context,val type:String) : RecyclerView.Adapter<HorizontalRecyclerViewAdapter.ViewHolder>() {
     var dataStorageClass:DataStorageClass ;
 
     init {
@@ -40,10 +40,12 @@ class HorizontalRecyclerViewAdapter(val json:JSONArray,val context:Context) : Re
         holder?.cardview?.setOnClickListener(View.OnClickListener {
             DataStorageClass.setItemForFullViewClass(json.get(position) as JSONObject);
             goToFullView(FullProductDescriptionFragment())
+
         })
 
         holder?.productAdd?.setOnClickListener(View.OnClickListener {
             dataStorageClass.AddOrderID(item.get("id").toString())
+            context.ShowToast("Order Added Successfully")
         })
 
 
@@ -56,7 +58,12 @@ class HorizontalRecyclerViewAdapter(val json:JSONArray,val context:Context) : Re
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        var view:View = LayoutInflater.from(parent?.context).inflate(R.layout.product_view_mainscreen,parent,false)
+        var view:View =LayoutInflater.from(parent?.context).inflate(R.layout.product_view_mainscreen,parent,false);
+
+        if(type.equals("vegetables")){
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.product_view_mainscreen_yellow,parent,false)
+        }
+
 
         return ViewHolder(view);
     }

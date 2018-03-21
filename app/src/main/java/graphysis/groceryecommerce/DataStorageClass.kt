@@ -44,7 +44,11 @@ class DataStorageClass(val context: Context?, val name:String, val version:Int) 
         var db:SQLiteDatabase = this.writableDatabase;
 
         db.execSQL("delete from Orders where id = "+id);
+    }
 
+    fun deleteAllOrder(){
+        var db:SQLiteDatabase = this.writableDatabase;
+        db.execSQL("delete * from Orders");
     }
 
     fun getAllOrder():ArrayList<String>{

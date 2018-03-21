@@ -12,11 +12,37 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <ImageView
+
+        <ViewFlipper
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:src="@drawable/ic_launcher_background"
-            />
+            android:id="@+id/slideShow">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/background_circle"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/com_facebook_button_icon_blue"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/background_circle"
+                />
+        </ViewFlipper>
+
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -34,6 +60,12 @@
                     android:orientation="horizontal"
                     >
                     <TextView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/green_round"
+                        />
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Vegetables"
@@ -42,15 +74,17 @@
                         />
                     <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:text="View all"
-                        style="@style/button"
+                        style="@style/greenButton"
+                        android:textColor="#fff"
                         android:id="@+id/vegetable_view_all"
                         />
                 </LinearLayout>
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:id="@+id/vegetable_recyclerview"
                     ></android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -73,6 +107,12 @@
                     android:orientation="horizontal"
                     >
                     <TextView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/yellow_round"
+                        />
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Fruits"
@@ -81,9 +121,10 @@
                         />
                     <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:text="View all"
-                        style="@style/button"
+                        style="@style/yellowButton"
+                        android:textColor="#fff"
                         android:id="@+id/fruits_view_all"
                         />
                 </LinearLayout>
@@ -91,6 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/fruits_recyclerview"
+                    android:layout_marginTop="5dp"
                     ></android.support.v7.widget.RecyclerView>
             </LinearLayout>
         </android.support.v7.widget.CardView>

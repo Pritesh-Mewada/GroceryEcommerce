@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.pending_completed_fragment.*
 import org.json.JSONException
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -101,7 +102,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.home -> {
                 // Handle the camera action
                 fragment = MainScreenFragment();
-
             }
             R.id.fruit -> {
                 fragment = FruitScreenFragment();
@@ -110,16 +110,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 fragment = VegetableScreenFragment();
             }
             R.id.user_profile -> {
-                fragment = OrdersFragment();
+                fragment = ProfileScreenFragment();
             }
             R.id.user_orders -> {
                 fragment = CheckOutFragment();
             }
-            R.id.nav_send -> {
-
+            R.id.easy_orders -> {
+                fragment = EasyOrderFragment();
+            }
+            R.id.recent_orders->{
+                fragment =PendingCompletedFragment()
             }
         }
-        fragmentTransaction?.replace(R.id.show_all_fragments,fragment)?.addToBackStack(null);
+        fragmentTransaction?.replace(R.id.show_all_fragments,fragment)
         fragmentTransaction?.commit();
 
         drawer_layout.closeDrawer(GravityCompat.START)

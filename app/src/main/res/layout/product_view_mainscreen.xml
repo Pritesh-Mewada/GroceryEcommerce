@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="5dp"
     app:cardElevation="6dp"
-    android:id="@+id/cardview">
+    android:id="@+id/cardview"
+    style="@style/cardView">
     <LinearLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -55,20 +56,24 @@
             android:orientation="horizontal"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="-5dp"
+            android:padding="5dp"
             >
+
             <TextView
+                android:id="@+id/product_price"
+                style="@style/headings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rs. 215"
-                style="@style/headings"
                 android:layout_weight="1"
-                android:id="@+id/product_price"
-                />
+                android:text="Rs. 21"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                 />
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Add"
-                style="@style/button"
+                android:layout_height="30dp"
+                style="@style/greenButton"
+                android:textColor="#fff"
                 android:id="@+id/product_button"
                 />
         </LinearLayout>

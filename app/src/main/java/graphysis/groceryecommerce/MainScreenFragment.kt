@@ -13,8 +13,10 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Toast
+import kotlinx.android.synthetic.main.main_screen_fragment.*
 import org.json.JSONException
 
 
@@ -57,6 +59,12 @@ class MainScreenFragment: Fragment() {
             goToFullView(FruitScreenFragment())
         });
 
+        slideShow.isAutoStart =true
+        slideShow.setFlipInterval(5000)
+        slideShow.setInAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_in))
+        slideShow.setOutAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_out))
+        slideShow.startFlipping()
+
         vegetableViewAll.setOnClickListener(View.OnClickListener {
             goToFullView(VegetableScreenFragment())
         });
@@ -72,8 +80,8 @@ class MainScreenFragment: Fragment() {
 
 
     fun initAdapter(){
-        adapterFruit = HorizontalRecyclerViewAdapter(DataStorageClass.fruits, context!!);
-        adapterVegetable = HorizontalRecyclerViewAdapter(DataStorageClass.vegetable, context!!);
+        adapterFruit = HorizontalRecyclerViewAdapter(DataStorageClass.fruits, context!!,"fruits");
+        adapterVegetable = HorizontalRecyclerViewAdapter(DataStorageClass.vegetable, context!!,"vegetables");
         vegetableRecycle?.adapter=adapterVegetable;
         fruitRecycle?.adapter=adapterFruit;
 

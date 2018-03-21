@@ -6,10 +6,14 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.vertical_product_layout.*
+import org.json.JSONArray
+import org.json.JSONObject
 
 /**
  * Created by pritesh on 17/12/17.
@@ -24,7 +28,9 @@ class VegetableScreenFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        adapter = VerticalRecyclerViewAdapter(DataStorageClass.vegetable,context!!);
+        adapter = VerticalRecyclerViewAdapter(DataStorageClass.vegetable,context!!,"vegetables");
+
+
 
         product_view_vertical_recycle.adapter=adapter;
         product_view_vertical_recycle.layoutManager = LinearLayoutManager(context);
@@ -32,6 +38,33 @@ class VegetableScreenFragment:Fragment() {
         product_checkout.setOnClickListener {
             goToFullView(CheckOutFragment())
         }
+
+        searchText.addTextChangedListener(object:TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0.toString().equals("")){
+                    adapter.setData(DataStorageClass.vegetable)
+                    adapter.notifyDataSetChanged()
+                }else{
+                    var items =DataStorageClass.vegetable;
+                    var products=JSONArray();
+                    for(i in 0..(items.length()-1)){
+                        var item = items.get(i) as JSONObject;
+                        if(item.get("name").toString().contains(p0.toString())){
+                            products.put(item)
+                        }
+                    }
+                    adapter.setData(products)
+                    adapter.notifyDataSetChanged()
+                }
+            }
+
+        })
 
 
     }

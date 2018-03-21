@@ -83,10 +83,6 @@ class SignInActivity : AppCompatActivity() {
 
         loginButton = findViewById<View>(R.id.login_button) as LoginButton
         login_button.setReadPermissions("email")
-        // If using in a fragment
-
-
-
         LoginManager.getInstance().registerCallback(callbackManager,
                 object : FacebookCallback<LoginResult> {
                     override fun onSuccess(loginResult: LoginResult) {
@@ -114,6 +110,8 @@ class SignInActivity : AppCompatActivity() {
 
                     override fun onError(exception: FacebookException) {
                         // App code
+                        ShowToast("Unfortunately Some Error Ocurred")
+
                     }
                 });
 
@@ -164,7 +162,6 @@ class SignInActivity : AppCompatActivity() {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
 
-
         }
 
     }
@@ -177,10 +174,12 @@ class SignInActivity : AppCompatActivity() {
                     if(response !=null){
                         var json:JSONObject = JSONObject(response)
                         if( json.get("status").equals("Success")){
-                            startActivity(Intent(applicationContext,MainActivity::class.java));
                             var dataObject = JSONObject(json.get("data").toString());
+                            startActivity(Intent(applicationContext,MainActivity::class.java));
                             StoreID(dataObject.get("id").toString(),email,dataObject.get("name").toString());
                             finish()
+                        }else if(json.get("status").equals("Error")){
+                            ShowToast(json.get("reason").toString());
                         }
                     }
 
@@ -188,6 +187,7 @@ class SignInActivity : AppCompatActivity() {
                 },
                 Response.ErrorListener {
                     // error
+                    ShowToast("Unfortunately Some Error Ocurred")
                     Log.d("Google", "Error in custom login")
                 }
         ) {
@@ -213,6 +213,8 @@ class SignInActivity : AppCompatActivity() {
                             startActivity(Intent(applicationContext,MainActivity::class.java));
                             StoreID(JSONObject(json.get("data").toString()).get("id").toString(),email,username);
                             finish()
+                        }else if(json.get("status").equals("Error")){
+                            ShowToast(json.get("reason").toString())
                         }
                     }
 
@@ -220,7 +222,8 @@ class SignInActivity : AppCompatActivity() {
                 },
                 Response.ErrorListener {
                     // error
-                    Log.d("Google", "Error in custom login")
+                    ShowToast("Unfortunately Some Error Ocurred")
+                    Log.d("Google", "Error in social login")
                 }
         ) {
             override fun getParams(): Map<String, String> {
@@ -229,6 +232,8 @@ class SignInActivity : AppCompatActivity() {
                 params.put("email", email)
                 return params
             }
+
+
         }
 
         requestQueue.add(postRequest);
@@ -248,7 +253,6 @@ class SignInActivity : AppCompatActivity() {
 
     fun getID():Boolean{
         var sharedPref:SharedPreferences = getSharedPreferences("User",Context.MODE_PRIVATE);
-
         if (sharedPref.getString("Id", "default_value").equals("default_value")) return false else return true;
     }
 

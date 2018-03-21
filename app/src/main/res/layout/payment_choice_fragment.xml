@@ -3,6 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="200"
+        android:indeterminate="true"
+        android:backgroundTint="#fff"
+        android:indeterminateTint="@color/colorAccent"
+        android:id="@+id/ProgressBar"
+        android:visibility="invisible"
+        />
 
 
     <TextView
@@ -28,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:id="@+id/payViaCOD"
-        style="@style/button"
+        android:textColor="#fff"
+        style="@style/greenButton"
         android:text="Pay via COD"
         />
 
@@ -37,7 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:id="@+id/payOnline"
-        style="@style/button"
-        android:text="Pay via PaymentGateway"
+        style="@style/yellowButton"
+        android:textColor="#fff"
+        android:text="Pay via UPI"
         />
 </LinearLayout>

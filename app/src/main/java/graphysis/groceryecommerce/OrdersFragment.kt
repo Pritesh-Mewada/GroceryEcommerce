@@ -42,56 +42,86 @@ class OrdersFragment: Fragment() {
         requestQueue = Volley.newRequestQueue(context)
 
         initTextView();
-        initRecycle();
+        //initRecycle();
+        Save.setOnClickListener {
+            var fields = AddressLine.text.isEmpty() || LandMark.text.isEmpty() || contactNumber.text.isEmpty() || alternateNumber.text.isEmpty();
+
+            if(fields){
+                context?.ShowToast("Fill all the fields")
+            }else{
+                StoreID()
+                context?.ShowToast("Details saved successfully")
+
+            }
+
+        }
     }
+
 
     fun initTextView() {
 
-        var sharedPrefrence: SharedPreferences = activity?.getSharedPreferences("User",Context.MODE_PRIVATE)!!;
-        user_initial.text = sharedPrefrence.getString("Username", "Default").get(0).toString().toUpperCase();
-        user_name.text=sharedPrefrence.getString("Username", "Default").toString().capitalize();
-        user_email.text=sharedPrefrence.getString("Email", "Default").toString().capitalize()
-    }
-
-
-    fun initRecycle(){
-        val postRequest = object : StringRequest(Request.Method.POST, url,
-                Response.Listener { response ->
-                    // response
-                    Log.d("Google", "Orders")
-
-                    Log.d("Google", response)
-                    if(response !=null){
-                        var json: JSONObject = JSONObject(response)
-                        if(json.get("status").equals("Success")){
-                            orderRecyclerAdapter = OrderRecyclerViewAdapter(json.get("data") as JSONArray,context!!);
-                            orders_recyclerview.adapter = orderRecyclerAdapter;
-                            orders_recyclerview.layoutManager = LinearLayoutManager(context);
-
-                        }
-                    }
-
-
-                },
-                Response.ErrorListener {
-                    // error
-                    Log.d("Google", "Error in custom login")
-                }
-        ) {
-            override fun getParams(): Map<String, String> {
-                val params = HashMap<String, String>()
-                Log.d("Google",getID());
-                params.put("id",getID())
-                return params
-            }
+        var sharedPref: SharedPreferences = activity?.getSharedPreferences("User",Context.MODE_PRIVATE)!!;
+        user_initial.text = sharedPref.getString("Username", "Default").get(0).toString().toUpperCase();
+        user_name.text=sharedPref.getString("Username", "Default").toString().capitalize();
+        user_email.text=sharedPref.getString("Email", "Default").toString().capitalize()
+        if (!sharedPref.getString("landmark", "default_value").equals("default_value")){
+            AddressLine.setText(sharedPref.getString("address", "default_value").toString())
+            LandMark.setText(sharedPref.getString("landmark", "default_value").toString())
+            contactNumber.setText(sharedPref.getString("contact", "default_value").toString())
+            alternateNumber.setText(sharedPref.getString("alternate", "default_value").toString())
         }
 
-        requestQueue.add(postRequest)
     }
+
+
+    fun StoreID(){
+        var sharedPref: SharedPreferences = (context as FragmentActivity).getSharedPreferences("User", Context.MODE_PRIVATE);
+        var  editor: SharedPreferences.Editor = sharedPref.edit();
+        editor.putString("address", AddressLine.text.toString());
+        editor.putString("landmark",LandMark.text.toString());
+        editor.putString("contact",contactNumber.text.toString());
+        editor.putString("alternate",alternateNumber.text.toString());
+        editor.commit();
+    }
+
+
+//    fun initRecycle(){
+//        val postRequest = object : StringRequest(Request.Method.POST, url,
+//                Response.Listener { response ->
+//                    // response
+//                    Log.d("Google", "Orders")
+//
+//                    Log.d("Google", response)
+//                    if(response !=null){
+//                        var json: JSONObject = JSONObject(response)
+//                        if(json.get("status").equals("Success")){
+//                            orderRecyclerAdapter = OrderRecyclerViewAdapter(json.get("data") as JSONArray,context!!);
+//                            orders_recyclerview.adapter = orderRecyclerAdapter;
+//                            orders_recyclerview.layoutManager = LinearLayoutManager(context);
+//
+//                        }
+//                    }
+//
+//
+//                },
+//                Response.ErrorListener {
+//                    // error
+//                    Log.d("Google", "Error in custom login")
+//                }
+//        ) {
+//            override fun getParams(): Map<String, String> {
+//                val params = HashMap<String, String>()
+//                Log.d("Google",getID());
+//                params.put("id",getID())
+//                return params
+//            }
+//        }
+//
+//        requestQueue.add(postRequest)
+//    }
 
     fun getID():String{
         var sharedPref:SharedPreferences = context?.getSharedPreferences("User",Context.MODE_PRIVATE)!!;
-
         return sharedPref.getString("Id", "default_value").toString();
     }
 }

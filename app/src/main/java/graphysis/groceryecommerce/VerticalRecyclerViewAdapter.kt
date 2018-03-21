@@ -19,11 +19,17 @@ import org.json.JSONObject
 /**
  * Created by pritesh on 17/12/17.
  */
-class VerticalRecyclerViewAdapter(val json: JSONArray, val context: Context) : RecyclerView.Adapter<VerticalRecyclerViewAdapter.ViewHolder>() {
+class VerticalRecyclerViewAdapter(val data:JSONArray, val context: Context,val type:String) : RecyclerView.Adapter<VerticalRecyclerViewAdapter.ViewHolder>() {
     var dataStorageClass:DataStorageClass ;
+    var json:JSONArray;
 
     init {
         dataStorageClass = DataStorageClass(context,"Order",2);
+        json=data;
+    }
+
+    fun setData(data:JSONArray){
+        this.json=data
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
@@ -43,6 +49,7 @@ class VerticalRecyclerViewAdapter(val json: JSONArray, val context: Context) : R
 
         holder?.productAdd?.setOnClickListener(View.OnClickListener {
             dataStorageClass.AddOrderID(item.get("id").toString())
+            context.ShowToast("Order Added Successfully")
         })
     }
 
@@ -53,6 +60,10 @@ class VerticalRecyclerViewAdapter(val json: JSONArray, val context: Context) : R
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         var view:View = LayoutInflater.from(parent?.context).inflate(R.layout.product_view_horizontal,parent,false)
 
+        if(type.equals("fruits")){
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.product_view_horizontal_yellow,parent,false)
+
+        }
         return ViewHolder(view);
     }
 

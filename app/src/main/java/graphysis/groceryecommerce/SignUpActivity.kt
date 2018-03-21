@@ -39,7 +39,6 @@ class SignUpActivity : AppCompatActivity() {
 
             var match :Boolean = password.text.toString().equals(rpassword.text.toString());
             if(verifyEmail(email_id.text.toString()) && !validity && match){
-                Toast.makeText(applicationContext,"Ready to signup",Toast.LENGTH_LONG).show();
                 signUp(url,display_name.text.toString(),email_id.text.toString(),password.text.toString());
             }
 
@@ -65,12 +64,14 @@ class SignUpActivity : AppCompatActivity() {
                             startActivity(Intent(applicationContext,MainActivity::class.java));
                             StoreID(JSONObject(json.get("data").toString()).get("id").toString(),email,user);
                             finish()
+                        }else if(json.get("status").equals("Error")){
+                            ShowToast(json.get("reason").toString());
                         }
                     }
 
                 },
                 Response.ErrorListener {
-                    // error
+                    ShowToast("Unfortunately Some Error Ocurred")
                     Log.d("Google", "Error in custom login")
                 }
         ) {
@@ -94,7 +95,6 @@ class SignUpActivity : AppCompatActivity() {
         Log.d("Google","Id insert:  "+id);
         editor.putString("Email",email);
         editor.putString("Username",username);
-
         editor.commit();
     }
 

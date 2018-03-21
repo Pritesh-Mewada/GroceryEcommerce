@@ -1,6 +1,7 @@
 package graphysis.groceryecommerce
 
 import android.content.Context
+import android.os.Bundle
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -36,6 +37,12 @@ class OrderRecyclerViewAdapter(val orders:JSONArray,val context:Context): Recycl
         holder?.productStatus?.text = item.get("status").toString().capitalize()
         holder?.productDate?.text = format.format(date);
 
+        holder?.productImage?.setOnClickListener({
+            var bundle:Bundle = Bundle();
+            bundle.putString("url",item.get("img").toString());
+            context.goToFullView(FullScreenImageFragment());
+
+        })
 
     }
 

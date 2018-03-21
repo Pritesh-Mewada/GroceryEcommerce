@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="Home" />
         <item
             android:id="@+id/fruit"
@@ -18,25 +18,20 @@
             android:title="Vegetables" />
         <item
             android:id="@+id/user_profile"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/profile_24dp"
             android:title="Profile" />
         <item
             android:id="@+id/user_orders"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/cart_24dp"
             android:title="Orders" />
+        <item
+            android:id="@+id/easy_orders"
+            android:icon="@drawable/easy_24dp"
+            android:title="EasyOrder" />
+        <item
+            android:id="@+id/recent_orders"
+            android:icon="@drawable/recent_24dp"
+            android:title="Recent Orders" />
+
     </group>
-
-    <item android:title="Reach us">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Developers" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="About us" />
-        </menu>
-    </item>
-
 </menu>

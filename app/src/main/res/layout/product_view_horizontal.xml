@@ -7,6 +7,7 @@
     android:layout_marginTop="-10dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="6dp"
+    style="@style/cardView"
     android:id="@+id/cardview">
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,6 +67,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="-15dp"
+            android:layout_marginBottom="5dp"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -78,9 +80,10 @@
                 />
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:textColor="#fff"
                 android:text="Add"
-                style="@style/button"
+                style="@style/greenButton"
                 android:layout_marginRight="10dp"
                 android:id="@+id/product_button"
                 />
