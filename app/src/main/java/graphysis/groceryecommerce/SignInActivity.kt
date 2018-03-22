@@ -78,6 +78,7 @@ class SignInActivity : AppCompatActivity() {
         signup_text.setOnClickListener {
             var intent:Intent = Intent(applicationContext,SignUpActivity::class.java);
             startActivity(intent)
+            finish()
         }
 
 

@@ -51,18 +51,27 @@ class PaymentChoiceFragment:Fragment() {
         }
 
         payOnline.setOnClickListener {
-            val intent = context?.packageManager?.getLaunchIntentForPackage("net.one97.paytm");
+            val intent = context?.packageManager?.getLaunchIntentForPackage("com.google.android.apps.nbu.paisa.user");
 
+            val list = context?.packageManager?.getInstalledApplications(PackageManager.GET_META_DATA) as List<ApplicationInfo>;
+
+            for(x:ApplicationInfo in list){
+                Log.d("hello",x.packageName);
+            }
             if(intent!=null){
-                intent.data = Uri.parse("upi://pay?pa=rohitkawale@ybl&pn=Rohit Kawale&tid=422d97c1-f0fc-4bea-b24a-511ffa85e86f&am=200.87&tn=Test%transaction")
+
+                //intent.data = Uri.parse("upi://pay?pa=rohitkawale@ybl&pn=Rohit Kawale&tid=422d97c1-f0fc-4bea-b24a-511ffa85e86f&am=200.87&tn=Test%transaction")
+
                 val UPI = "upi://pay?pa=kghormade@ybl" + "&pn=rohit" + "&" + "&am=1"
                 intent.action = Intent.ACTION_VIEW
                 intent.data = Uri.parse(UPI)
-                (context as FragmentActivity).startActivityForResult(intent,123);
+                val chooser = Intent.createChooser(intent, "Pay with...")
+                //starting activity for result
+                startActivityForResult(chooser, 1, null)
 
 
             }else{
-                context?.ShowToast("Paytm app not installed")
+                context?.ShowToast("App not installed")
             }
 
         }
@@ -114,6 +123,10 @@ class PaymentChoiceFragment:Fragment() {
         }
 
         requestQueue.add(postRequest);
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     fun getID():String{

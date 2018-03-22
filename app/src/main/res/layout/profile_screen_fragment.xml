@@ -24,7 +24,7 @@
             android:layout_height="80dp"
             android:background="@drawable/circle_outline"
             android:elevation="6dp"
-            android:text="P"
+            android:text=""
             android:gravity="center"
             android:textColor="#fff"
             android:textStyle="bold"
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pritesh Mewada"
+                android:text=""
                 style="@style/headings"
                 android:id="@+id/user_name"
                 android:layout_centerHorizontal="true"
@@ -59,7 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="mewadapritesh5@gmail.com"
+                android:text=""
                 style="@style/subheadings"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/user_email"
@@ -91,10 +91,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ghartan Pada no 2 suyog nagar om SGhartan Pada no 2 suyog nagar om S"
+        android:text=""
         android:gravity="left"
         style="@style/subheadings"
         android:textSize="14sp"
+        android:id="@+id/addressProfile"
         android:layout_margin="10dp"
         />
     <View
@@ -121,10 +122,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="9172977934"
+        android:text=""
         style="@style/subheadings"
         android:textSize="14sp"
         android:gravity="left"
+        android:id="@+id/numberProfile"
         android:layout_margin="10dp"
         />
 

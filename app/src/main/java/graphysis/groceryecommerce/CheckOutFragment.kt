@@ -38,12 +38,15 @@ class CheckOutFragment: Fragment() {
         checkoutRecycle.adapter=checkoutRecycleAdapter
 
         checkoutFragmentButton.setOnClickListener {
-            var mAddressDetailFragment:AddressDetailFragment = AddressDetailFragment();
-
-            var bundle:Bundle = Bundle();
-            bundle.putString("price",totalPrice.text.toString());
-            mAddressDetailFragment.arguments = bundle;
-            goToFullView(mAddressDetailFragment);
+            if(totalPrice.text.toString().toInt()>=50){
+                var mAddressDetailFragment:AddressDetailFragment = AddressDetailFragment();
+                var bundle:Bundle = Bundle();
+                bundle.putString("price",totalPrice.text.toString());
+                mAddressDetailFragment.arguments = bundle;
+                goToFullView(mAddressDetailFragment);
+            }else{
+                context?.ShowToast("Total amount should be greater than Rs 50")
+            }
         }
     }
 

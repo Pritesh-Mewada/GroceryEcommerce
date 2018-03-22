@@ -135,7 +135,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var fragmentTransaction: FragmentTransaction? = fragmentManager.beginTransaction();
         var fragment: Fragment =MainScreenFragment();
         fragmentTransaction?.replace(R.id.show_all_fragments,fragment);
-
         fragmentTransaction?.commit();
     }
 

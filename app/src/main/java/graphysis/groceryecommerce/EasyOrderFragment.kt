@@ -81,7 +81,7 @@ class EasyOrderFragment:Fragment() {
 
     fun initEditText(){
         var sharedPref: SharedPreferences = (context as FragmentActivity).getSharedPreferences("User", Context.MODE_PRIVATE);
-        if (!sharedPref.getString("name", "default_value").equals("default_value")){
+        if (!sharedPref.getString("address", "default_value").equals("default_value")){
             AddressLine.setText(sharedPref.getString("address", "default_value").toString())
             LandMark.setText(sharedPref.getString("landmark", "default_value").toString())
             contactNumber.setText(sharedPref.getString("contact", "default_value").toString())

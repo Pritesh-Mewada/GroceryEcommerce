@@ -93,7 +93,7 @@ class AddressDetailFragment :Fragment() {
                             var json: JSONObject = JSONObject(response)
                             if( json.get("status").equals("Success")){
                                 context?.ShowToast("Otp Verified Please Proceed");
-                                VerifyOtp.text = "Proceed for payment"
+                                orderProceed.text = "Proceed for payment"
                                 otpNumber=contactNumber.text.toString()
                             }
                         }
@@ -140,8 +140,8 @@ class AddressDetailFragment :Fragment() {
 
     fun initEditText(){
         var sharedPref:SharedPreferences = (context as FragmentActivity).getSharedPreferences("User",Context.MODE_PRIVATE);
-        if (!sharedPref.getString("name", "default_value").equals("default_value")){
-            orderName.setText(sharedPref.getString("name", "default_value").toString());
+        if (!sharedPref.getString("address", "default_value").equals("default_value")){
+            orderName.setText(sharedPref.getString("Username", "default_value").toString());
             AddressLine.setText(sharedPref.getString("address", "default_value").toString())
             LandMark.setText(sharedPref.getString("landmark", "default_value").toString())
             contactNumber.setText(sharedPref.getString("contact", "default_value").toString())
