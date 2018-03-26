@@ -17,33 +17,48 @@ class DataStorageClass(val context: Context?, val name:String, val version:Int) 
 
 
     override fun onCreate(p0: SQLiteDatabase?) {
-        val CREATE_TABLE = (" CREATE TABLE IF NOT EXISTS Orders ( id TEXT UNIQUE ) ");
-
+        val CREATE_TABLE = (" CREATE TABLE IF NOT EXISTS Orders ( keyword TEXT UNIQUE , quantity TEXT , cost TEXT ) ");
         p0?.execSQL(CREATE_TABLE);
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-
         p0?.execSQL("DROP TABLE IF EXISTS Orders");
-
         // Create tables again
         onCreate(p0);
     }
 
-    fun AddOrderID(id:String){
+    fun AddOrderID(keyword:String,cost:String,quantity:String){
+
+        Log.d("hello",keyword+"  "+cost+"  "+quantity)
         var db:SQLiteDatabase = this.writableDatabase;
+
+
         var contentvalues:ContentValues = ContentValues();
-        contentvalues.put("id",id);
+        contentvalues.put("keyword",keyword);
+        contentvalues.put("quantity",quantity);
+        contentvalues.put("cost",cost);
 
         db.insert("Orders",null,contentvalues);
+
         db.close()
     }
 
+    fun UpdateOrderID(keyword:String,cost:String,quantity:String){
+        var db:SQLiteDatabase = this.writableDatabase;
+        var contentvalues:ContentValues = ContentValues();
+        contentvalues.put("keyword",keyword);
+        contentvalues.put("quantity",quantity);
+        contentvalues.put("cost",cost);
+        val where = "keyword=?"
+        val whereArgs = arrayOf<String>(keyword)
+        db.update("Orders",contentvalues,where,whereArgs);
+        db.close()
+    }
 
     fun RemoveOrder(id:String){
         var db:SQLiteDatabase = this.writableDatabase;
-
-        db.execSQL("delete from Orders where id = "+id);
+        db.execSQL("delete from Orders where keyword='"+id+"'")
+        db.close()
     }
 
     fun deleteAllOrder(){
@@ -65,8 +80,28 @@ class DataStorageClass(val context: Context?, val name:String, val version:Int) 
             }while (cursor.moveToNext())
         }
 
-        Log.d("Google",array.toString())
+
         return array;
+
+    }
+
+    fun getDataForCheckout():JSONArray{
+        var db:SQLiteDatabase = this.readableDatabase;
+        val select = "SELECT * FROM Orders"
+        var cursor: Cursor = db.rawQuery(select,null);
+        var dataReturn = JSONArray();
+        if(cursor.moveToFirst()){
+            do {
+                var orderObject = JSONObject();
+                orderObject.put("product_id",cursor.getString(0).toString());
+                orderObject.put("order_quantity",cursor.getString(1).toString());
+                orderObject.put("unit_price",cursor.getString(2).toString());
+                dataReturn.put(orderObject);
+
+            }while (cursor.moveToNext())
+        }
+
+        return dataReturn
 
     }
 
@@ -98,22 +133,7 @@ class DataStorageClass(val context: Context?, val name:String, val version:Int) 
             checkout = data;
         }
 
-        fun getDataForCheckout():JSONArray{
-            var dataReturn=JSONArray();
 
-            for(i in 0..(checkout.size-1)){
-
-                var orderObject = JSONObject();
-                var tempObject = checkout.get(i) as JSONObject;
-                orderObject.put("product_id",tempObject.get("keyword").toString());
-                orderObject.put("order_quantity",tempObject.get("order_quantity").toString());
-                orderObject.put("unit_price",tempObject.get("cost").toString());
-
-                dataReturn.put(orderObject);
-            }
-
-            return dataReturn;
-        }
 
 
 

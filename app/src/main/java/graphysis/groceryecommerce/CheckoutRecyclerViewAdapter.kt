@@ -2,6 +2,7 @@ package graphysis.groceryecommerce
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,34 +15,33 @@ import org.json.JSONObject
  * Created by pritesh on 25/12/17.
  */
 class CheckoutRecyclerViewAdapter(val context:Context?,val jsonFruit:JSONArray,val jsonVegetable:JSONArray,val totalprice:TextView): RecyclerView.Adapter<CheckoutRecyclerViewAdapter.ViewHolder>() {
-    var products:ArrayList<String>
+    var products:JSONArray
     var dataStorage:DataStorageClass;
     var retrieveJson :ArrayList<JSONObject>;
     init {
-        dataStorage = DataStorageClass(context = context, name = "Order", version = 2);
-        products = dataStorage.getAllOrder();
+        dataStorage = DataStorageClass(context = context, name = "Order", version = 3);
+        products = dataStorage.getDataForCheckout();
         retrieveJson = ArrayList();
-        DataStorageClass.setDataForCheckout(retrieveJson)
 
-        for (j in 0..(products.size-1)){
+        for (j in 0..(products.length()-1)){
             for (i in 0..(jsonFruit.length()-1)){
                 var product = jsonFruit.get(i) as JSONObject;
-
-                if(product.get("id").equals(products.get(j))){
-                    product.put("order_quantity",1)
+                var storeProduct=products.get(j) as JSONObject;
+                if(product.get("keyword").equals(storeProduct.get("product_id"))){
+                    Log.d("hello",product.get("quantity").toString())
+                    product.put("order_quantity",storeProduct.get("order_quantity").toString())
                     retrieveJson.add(product)
-                    totalprice.text = (totalprice.text.toString().toInt()+product.get("cost").toString().toInt()).toString()
+                    totalprice.text = (totalprice.text.toString().toInt()+storeProduct.get("order_quantity").toString().toInt()*storeProduct.get("unit_price").toString().toInt()).toString()
+
                 }
-
-
             }
             for (i in 0..(jsonVegetable.length()-1)){
                 var product = jsonVegetable.get(i) as JSONObject;
-
-                if(product.get("id").equals(products.get(j))){
-                    product.put("order_quantity",1)
+                var storeProduct=products.get(j) as JSONObject;
+                if(product.get("keyword").equals(storeProduct.get("product_id"))){
+                    product.put("order_quantity",storeProduct.get("order_quantity").toString())
                     retrieveJson.add(product)
-                    totalprice.text = (totalprice.text.toString().toInt()+product.get("cost").toString().toInt()).toString()
+                    totalprice.text = (totalprice.text.toString().toInt()+storeProduct.get("order_quantity").toString().toInt()*storeProduct.get("unit_price").toString().toInt()).toString()
                 }
             }
         }
@@ -58,6 +58,8 @@ class CheckoutRecyclerViewAdapter(val context:Context?,val jsonFruit:JSONArray,v
         holder?.productQuantity?.text = "1 "+item.get("quantity_unit").toString().capitalize()
         holder?.productPrice?.text ="Rs: "+item.get("cost").toString()
         Picasso.with(context).load(item.get("img").toString()).into(holder?.productImage);
+        holder?.productNumbers?.text=item.get("order_quantity").toString()
+        holder?.productPrice?.text="Rs: "+(item.get("order_quantity").toString().toInt()*item.get("cost").toString().toInt()).toString()
 
         holder?.productIncrement?.setOnClickListener(View.OnClickListener {
             var number = holder.productNumbers.text.toString().toInt();
@@ -71,28 +73,30 @@ class CheckoutRecyclerViewAdapter(val context:Context?,val jsonFruit:JSONArray,v
                 holder.productNumbers.text = number.toString()
                 holder?.productPrice?.text ="Rs: "+(number*item.get("cost").toString().toInt()).toString()
                 item.put("order_quantity",number);
-                DataStorageClass.setDataForCheckout(retrieveJson)
+                dataStorage.UpdateOrderID(keyword = item.get("keyword").toString(),cost = item.get("cost").toString(),quantity = number.toString());
+
+
             }
+
         })
 
         holder?.productDecrement?.setOnClickListener(View.OnClickListener {
             var number = holder.productNumbers.text.toString().toInt();
             var max = 1;
             if(number==max){
-                Toast.makeText(context,"Minimum Quantity Reached",Toast.LENGTH_LONG).show();
+                dataStorage.RemoveOrder(item.get("keyword").toString())
             }else{
                 number--;
                 totalprice.text = (totalprice.text.toString().toInt()-item.get("cost").toString().toInt()).toString()
                 holder.productNumbers.text = number.toString()
                 holder?.productPrice?.text ="Rs: "+(number*item.get("cost").toString().toInt()).toString()
-                item.put("order_quantity",number);
-                DataStorageClass.setDataForCheckout(retrieveJson)
+                dataStorage.UpdateOrderID(keyword = item.get("keyword").toString(),cost = item.get("cost").toString(),quantity = number.toString());
             }
         })
 
 
         holder?.productRemove?.setOnClickListener {
-            dataStorage.RemoveOrder(item.get("id").toString());
+            dataStorage.RemoveOrder(item.get("keyword").toString());
             var number:Int = item.get("order_quantity").toString().toInt();
 
             totalprice.text = (totalprice.text.toString().toInt()-number*item.get("cost").toString().toInt()).toString()

@@ -48,10 +48,6 @@
                         android:layout_weight="1"
                         android:id="@+id/product_price"
                         />
-
-
-
-
                 </LinearLayout>
 
                 <LinearLayout

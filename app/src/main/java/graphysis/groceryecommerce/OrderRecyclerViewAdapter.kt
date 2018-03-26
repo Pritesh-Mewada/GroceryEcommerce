@@ -29,23 +29,49 @@ class OrderRecyclerViewAdapter(val orders:JSONArray,val context:Context): Recycl
         var date = format.parse(item.get("date").toString())
         format = SimpleDateFormat("E, dd MMM yyyy ");
 
+        if(item.get("easy_order").toString().equals("true")){
+            holder?.productName?.text = "Easy Order"
+            holder?.productBreed?.text = ""
+            holder?.productQuantity?.text =""
+            holder?.productPrice?.text ="";
 
+            Picasso.with(context).load(item.get("image").toString()).into(holder?.productImage);
+            holder?.productStatus?.text = item.get("status").toString().capitalize()
+            holder?.productDate?.text = format.format(date);
 
-        holder?.productName?.text = item.get("name").toString().capitalize()
-        holder?.productBreed?.text = item.get("type").toString().capitalize()
-        holder?.productQuantity?.text =item.get("quantity").toString()+  " " +item.get("quantity_unit").toString().capitalize()
-        holder?.productPrice?.text ="Rs: "+item.get("quantity").toString().toInt()* item.get("unit_price").toString().toInt();
-        Picasso.with(context).load(item.get("img").toString()).into(holder?.productImage);
-        holder?.productStatus?.text = item.get("status").toString().capitalize()
-        holder?.productDate?.text = format.format(date);
-
-        holder?.productImage?.setOnClickListener({
-            var intent = Intent(context,FullScreenImage::class.java);
-            intent.putExtra("url",item.get("img").toString());
-            (context as FragmentActivity).startActivity(intent)
+            holder?.productImage?.setOnClickListener({
+                var intent = Intent(context,FullScreenImage::class.java);
+                intent.putExtra("url",item.get("image").toString());
+                (context as FragmentActivity).startActivity(intent)
 //            context.goToFullView(FullScreenImageFragment());
 
-        })
+            })
+        }else{
+            holder?.productName?.text = item.get("name").toString().capitalize()
+            holder?.productBreed?.text = item.get("type").toString().capitalize()
+            holder?.productQuantity?.text =item.get("quantity").toString()+  " " +item.get("quantity_unit").toString().capitalize()
+            holder?.productPrice?.text ="Rs: "+item.get("quantity").toString().toInt()* item.get("unit_price").toString().toInt();
+            Picasso.with(context).load(item.get("img").toString()).into(holder?.productImage);
+            holder?.productStatus?.text = item.get("status").toString().capitalize()
+            holder?.productDate?.text = format.format(date);
+
+            holder?.productImage?.setOnClickListener({
+                var intent = Intent(context,FullScreenImage::class.java);
+                intent.putExtra("url",item.get("img").toString());
+                (context as FragmentActivity).startActivity(intent)
+//            context.goToFullView(FullScreenImageFragment());
+
+            })
+
+        }
+
+
+
+
+
+
+
+
 
     }
 

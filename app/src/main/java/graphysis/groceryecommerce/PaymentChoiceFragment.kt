@@ -29,6 +29,7 @@ class PaymentChoiceFragment:Fragment() {
     lateinit var dataStorageClass:DataStorageClass;
     var url:String
     init {
+
         url="http://shopgondia.in/gondia_php/place_order.php"
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,7 +41,7 @@ class PaymentChoiceFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requestQueue = Volley.newRequestQueue(context)
         var bundle:Bundle = arguments as Bundle;
-        dataStorageClass = DataStorageClass(context,"Order",2);
+        dataStorageClass = DataStorageClass(context,"Order",3);
 
         if(bundle !=null){
             amountPayable.text="Rs. " +bundle.get("price");
@@ -108,8 +109,8 @@ class PaymentChoiceFragment:Fragment() {
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
                 var bundle:Bundle = arguments as Bundle;
-
-                params.put("data",DataStorageClass.getDataForCheckout().toString())
+                Log.d("hello",dataStorageClass.getDataForCheckout().toString());
+                params.put("data",dataStorageClass.getDataForCheckout().toString())
                 params.put("customer_id", getID())
                 params.put("name",bundle.get("name").toString())
                 params.put("location",bundle.get("address").toString()+"Near to:"+bundle.get("landmark").toString())

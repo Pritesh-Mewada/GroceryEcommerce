@@ -83,7 +83,7 @@ class AddressDetailFragment :Fragment() {
                 context?.ShowToast("Please Enter a Valid Otp")
                 return@setOnClickListener;
             }
-            context?.ShowToast("I am not render")
+
             ProgressBar.visibility = View.VISIBLE;
             val postRequest = object : StringRequest(Request.Method.POST, otpurl,
                     Response.Listener { response ->

@@ -9,4 +9,13 @@
     tools:showIn="@layout/app_bar_main"
     android:id="@+id/show_all_fragments"
     >
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/Fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_local_phone_black_24dp"
+        android:layout_margin="16dp" />
+
 </FrameLayout>

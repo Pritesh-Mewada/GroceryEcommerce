@@ -43,13 +43,13 @@
         style="@style/greenButton"
         android:text="Pay via COD"
         />
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:id="@+id/payOnline"
         style="@style/yellowButton"
+        android:visibility="invisible"
         android:textColor="#fff"
         android:text="Pay via UPI"
         />

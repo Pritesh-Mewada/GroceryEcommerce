@@ -44,7 +44,7 @@ class HorizontalRecyclerViewAdapter(val json:JSONArray,val context:Context,val t
         })
 
         holder?.productAdd?.setOnClickListener(View.OnClickListener {
-            dataStorageClass.AddOrderID(item.get("id").toString())
+            dataStorageClass.AddOrderID(item.get("keyword").toString(),item.get("cost").toString(),"1")
             context.ShowToast("Order Added Successfully")
         })
 

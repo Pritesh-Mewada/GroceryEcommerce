@@ -6,12 +6,11 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
@@ -24,7 +23,7 @@ class VerticalRecyclerViewAdapter(val data:JSONArray, val context: Context,val t
     var json:JSONArray;
 
     init {
-        dataStorageClass = DataStorageClass(context,"Order",2);
+        dataStorageClass = DataStorageClass(context,"Order",3);
         json=data;
     }
 
@@ -48,9 +47,41 @@ class VerticalRecyclerViewAdapter(val data:JSONArray, val context: Context,val t
         })
 
         holder?.productAdd?.setOnClickListener(View.OnClickListener {
-            dataStorageClass.AddOrderID(item.get("id").toString())
-            context.ShowToast("Order Added Successfully")
+            dataStorageClass.AddOrderID(keyword = item.get("keyword").toString(),cost=item.get("cost").toString(),quantity = "1");
+
+            holder?.productAdd.visibility=View.GONE;
+            holder?.showIncrement.visibility=View.VISIBLE;
         })
+
+        holder?.productIncrement?.setOnClickListener(View.OnClickListener {
+            var number = holder.productNumbers.text.toString().toInt();
+            var max = item.get("quantity").toString().toInt();
+
+            if(number==max){
+                Toast.makeText(context,"Maximum Available Quantity Reached", Toast.LENGTH_LONG).show();
+            }else{
+                number++
+                dataStorageClass.UpdateOrderID(keyword = item.get("keyword").toString(),cost = item.get("cost").toString(),quantity = number.toString());
+                holder.productNumbers.text = number.toString()
+                holder?.productPrice?.text ="Rs: "+(number*item.get("cost").toString().toInt()).toString()
+            }
+        })
+
+        holder?.productDecrement?.setOnClickListener(View.OnClickListener {
+            var number = holder.productNumbers.text.toString().toInt();
+            var max = 1;
+            if(number==max){
+                holder?.productAdd.visibility=View.VISIBLE;
+                holder?.showIncrement.visibility=View.GONE;
+                dataStorageClass.RemoveOrder(item.get("keyword").toString())
+            }else{
+                number--;
+                dataStorageClass.UpdateOrderID(keyword = item.get("keyword").toString(),cost = item.get("cost").toString(),quantity = number.toString());
+                holder.productNumbers.text = number.toString()
+                holder?.productPrice?.text ="Rs: "+(number*item.get("cost").toString().toInt()).toString()
+            }
+        })
+
     }
 
     override fun getItemCount(): Int {
@@ -59,10 +90,8 @@ class VerticalRecyclerViewAdapter(val data:JSONArray, val context: Context,val t
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         var view:View = LayoutInflater.from(parent?.context).inflate(R.layout.product_view_horizontal,parent,false)
-
         if(type.equals("fruits")){
             view = LayoutInflater.from(parent?.context).inflate(R.layout.product_view_horizontal_yellow,parent,false)
-
         }
         return ViewHolder(view);
     }
@@ -75,6 +104,10 @@ class VerticalRecyclerViewAdapter(val data:JSONArray, val context: Context,val t
         var productImage:ImageView;
         var productAdd:Button;
         var cardview :CardView;
+        var productNumbers:TextView;
+        var productIncrement: ImageButton;
+        var productDecrement: ImageButton;
+        var showIncrement:LinearLayout;
         init {
             productName = itemView?.findViewById(R.id.product_name)!!;
             productBreed = itemView?.findViewById(R.id.product_breed)!!
@@ -82,8 +115,11 @@ class VerticalRecyclerViewAdapter(val data:JSONArray, val context: Context,val t
             productPrice = itemView?.findViewById(R.id.product_price)!!
             productImage = itemView?.findViewById(R.id.product_image)!!
             productAdd = itemView?.findViewById(R.id.product_button)!!
+            productNumbers = itemView?.findViewById(R.id.quantity)!!
             cardview = itemView?.findViewById(R.id.cardview)!!
-
+            productIncrement = itemView?.findViewById(R.id.increment_quantity)!!
+            productDecrement = itemView?.findViewById(R.id.decrement_quantity)!!
+            showIncrement = itemView?.findViewById(R.id.ShowIncrement)!!
 
         }
     }

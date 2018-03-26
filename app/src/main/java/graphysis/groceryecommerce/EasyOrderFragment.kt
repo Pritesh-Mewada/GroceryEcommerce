@@ -150,4 +150,5 @@ class EasyOrderFragment:Fragment() {
         var sharedPref: SharedPreferences = (context as FragmentActivity).getSharedPreferences("User", Context.MODE_PRIVATE);
         return sharedPref.getString("Username", "default_value");
     }
+
 }

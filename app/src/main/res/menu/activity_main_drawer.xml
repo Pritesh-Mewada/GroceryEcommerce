@@ -32,6 +32,10 @@
             android:id="@+id/recent_orders"
             android:icon="@drawable/recent_24dp"
             android:title="Recent Orders" />
+        <item
+            android:id="@+id/feedback"
+            android:icon="@drawable/ic_email_black_24dp"
+            android:title="Feedback" />
 
     </group>
 </menu>
