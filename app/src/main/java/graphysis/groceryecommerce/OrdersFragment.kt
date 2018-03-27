@@ -71,6 +71,10 @@ class OrdersFragment: Fragment() {
             alternateNumber.setText(sharedPref.getString("alternate", "default_value").toString())
         }
 
+        if(!sharedPref.getString("contact", "default_value").equals("default_value")){
+            contactNumber.setText(sharedPref.getString("contact", "default_value").toString())
+        }
+
     }
 
 

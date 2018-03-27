@@ -1,6 +1,8 @@
 package graphysis.groceryecommerce
 
 import android.content.Context
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.support.v4.app.Fragment
@@ -31,9 +33,22 @@ fun Context.CheckOnline ():Boolean{
     }else{
         return false
     }
+}
 
+fun Context.IncrementCart(icon:LayerDrawable,count:String){
+    var badge:BadgeDrawable;
 
+    // Reuse drawable if possible
+    var  reuse:Drawable = icon.findDrawableByLayerId(R.id.ic_badge);
+    if (reuse != null && reuse is BadgeDrawable) {
+        badge =  reuse as BadgeDrawable;
+    } else {
+        badge = BadgeDrawable(this);
+    }
 
+    badge.setCount(count);
+    icon.mutate();
+    icon.setDrawableByLayerId(R.id.ic_badge, badge);
 }
 
 

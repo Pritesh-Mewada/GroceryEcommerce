@@ -67,11 +67,7 @@ class AddressDetailFragment :Fragment() {
                 bundle.putString("alternate",alternateNumber.text.toString());
                 StoreID();
                 mPaymentChoiceFragment.arguments = bundle;
-                if(otpNumber.equals(contactNumber.text.toString())){
-                    goToFullView(mPaymentChoiceFragment)
-                }else{
-                    sendOtp(contactNumber.text.toString());
-                }
+                goToFullView(mPaymentChoiceFragment)
             }else{
                 context?.ShowToast("Fill all the fields");
             }
@@ -146,6 +142,9 @@ class AddressDetailFragment :Fragment() {
             LandMark.setText(sharedPref.getString("landmark", "default_value").toString())
             contactNumber.setText(sharedPref.getString("contact", "default_value").toString())
             alternateNumber.setText(sharedPref.getString("alternate", "default_value").toString())
+        }
+        if(!sharedPref.getString("contact", "default_value").equals("default_value")){
+            contactNumber.setText(sharedPref.getString("contact", "default_value").toString())
         }
 
     }

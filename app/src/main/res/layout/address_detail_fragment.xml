@@ -60,6 +60,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:editable="false"
+                android:focusable="false"
                 android:hint="Contact No."
                 android:id="@+id/contactNumber"/>
         </android.support.design.widget.TextInputLayout>
@@ -104,9 +106,7 @@
             android:layout_alignParentBottom="true"
             style="@style/greenButton"
             android:textColor="#fff"
-
             android:id="@+id/orderProceed"
-            android:text="Proceed for Otp"/>
-
+            android:text="Proceed for payment"/>
     </LinearLayout>
 </ScrollView>

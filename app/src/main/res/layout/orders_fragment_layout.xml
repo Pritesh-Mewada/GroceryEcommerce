@@ -89,6 +89,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:focusable="false"
+                android:editable="false"
                 android:hint="Contact No."
                 android:id="@+id/contactNumber"/>
         </android.support.design.widget.TextInputLayout>

@@ -2,8 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/sign_out"
+        android:id="@+id/easyOrder"
         android:orderInCategory="100"
-        android:title="Sign Out"
-        app:showAsAction="never" />
+        android:title="EasyOrder"
+        android:icon="@drawable/easy_order_white_24dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/call"
+        android:orderInCategory="100"
+        android:title="Call"
+        android:icon="@drawable/ic_local_phone_black_24dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_cart"
+        android:icon="@drawable/ic_cart_menu"
+        android:title="cart"
+        app:showAsAction="always" />
+
+
 </menu>

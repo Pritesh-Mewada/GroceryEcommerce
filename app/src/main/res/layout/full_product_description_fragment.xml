@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="5dp"
         android:layout_margin="30px">
@@ -42,14 +42,20 @@
                     android:layout_marginRight="10dp"
                     />
             </LinearLayout>
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_launcher_background"
-                android:id="@+id/product_image"
-                android:layout_marginTop="10dp"
-                />
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_launcher_background"
+                    android:id="@+id/product_image"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    />
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,36 +86,36 @@
                 android:textSize="14sp"
                 android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                >
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:textColor="#fff"
-                        style="@style/greenButton"
-                        android:layout_centerHorizontal="true"
-                        android:text="Checkout"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:textColor="#fff"
-                        style="@style/greenButton"
-                        android:layout_centerHorizontal="true"
-                        android:text="Add to card"/>
-                </RelativeLayout>
-            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--&gt;-->
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<Button-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:textColor="#fff"-->
+                        <!--style="@style/greenButton"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:text="Checkout"/>-->
+                <!--</RelativeLayout>-->
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<Button-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:textColor="#fff"-->
+                        <!--style="@style/greenButton"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:text="Add to card"/>-->
+                <!--</RelativeLayout>-->
+            <!--</LinearLayout>-->
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

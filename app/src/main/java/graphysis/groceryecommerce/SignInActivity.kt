@@ -80,11 +80,16 @@ class SignInActivity : AppCompatActivity() {
                             var json: JSONObject = JSONObject(response)
                             if( json.get("status").equals("Success")){
                                 baseContext.ShowToast("Otp Verified Please Proceed");
-                                //var intent =Intent(applicationContext,MainActivity::class.java);
-                                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-                                //startActivity(intent);
-                                StoreID(id=JSONObject(json.get("data").toString()).get("id").toString(),email=email.text.toString(),number = number.text.toString(),name=name.text.toString());
-                                //finish()
+                                if(JSONObject(json.get("data").toString()).get("id").equals("null")){
+                                    baseContext.ShowToast("Login failed please try again");
+                                }else{
+                                    var intent =Intent(applicationContext,MainActivity::class.java);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                                    startActivity(intent);
+                                    StoreID(id=JSONObject(json.get("data").toString()).get("id").toString(),email=email.text.toString(),number = number.text.toString(),name=name.text.toString());
+                                    finish()
+                                }
+
                             }
                         }
                         ProgressBar.visibility = View.INVISIBLE;
@@ -92,7 +97,7 @@ class SignInActivity : AppCompatActivity() {
                     Response.ErrorListener {
                         // error
                         Log.d("Google", "Error in custom login")
-                        baseContext.ShowToast("Some error occurres please try again later")
+                        baseContext.ShowToast("Some error occurred please try again later")
                         ProgressBar.visibility = View.INVISIBLE;
                     }
             ) {
@@ -352,7 +357,7 @@ class SignInActivity : AppCompatActivity() {
         editor.putString("Id",id);
         editor.putString("Email",email);
         editor.putString("Username",name);
-        editor.putString("number",number);
+        editor.putString("contact",number);
         Log.d("Google","Id insert:  "+id);
         editor.commit();
     }

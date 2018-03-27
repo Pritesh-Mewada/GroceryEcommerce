@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Toast
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_screen_fragment.*
 import org.json.JSONException
 
@@ -49,8 +50,8 @@ class MainScreenFragment: Fragment() {
         request = Volley.newRequestQueue(context);
 
 
-        vegetableRecycle = view?.findViewById(R.id.vegetable_recyclerview);
-        fruitRecycle= view?.findViewById(R.id.fruits_recyclerview);
+//        vegetableRecycle = view?.findViewById(R.id.vegetable_recyclerview);
+//        fruitRecycle= view?.findViewById(R.id.fruits_recyclerview);
 
         fruitViewAll = view?.findViewById(R.id.fruits_view_all);
         vegetableViewAll = view?.findViewById(R.id.vegetable_view_all);
@@ -58,6 +59,31 @@ class MainScreenFragment: Fragment() {
         fruitViewAll.setOnClickListener(View.OnClickListener {
             goToFullView(FruitScreenFragment())
         });
+        vegetableViewAll.setOnClickListener(View.OnClickListener {
+            goToFullView(VegetableScreenFragment())
+        });
+
+        fruitsImage.setOnClickListener(View.OnClickListener {
+            goToFullView(FruitScreenFragment())
+        })
+        vegetableImage.setOnClickListener(View.OnClickListener {
+            goToFullView(VegetableScreenFragment())
+        })
+        easyOrder.setOnClickListener(View.OnClickListener {
+            goToFullView(EasyOrderFragment())
+        })
+
+
+
+        Picasso.with(context).load("http://shopgondia.in/gondia_php/banners/image1.jpg").into(slideOne);
+        Picasso.with(context).load("http://shopgondia.in/gondia_php/banners/image2.jpg").into(slideTwo);
+        Picasso.with(context).load("http://shopgondia.in/gondia_php/banners/image3.jpg").into(slideThree);
+        Picasso.with(context).load("http://shopgondia.in/gondia_php/banners/image4.jpg").into(slideFour);
+
+
+        Picasso.with(context).load("http://shopgondia.in/gondia_php/graphic_images/image1.jpg").into(fruitsImage);
+        Picasso.with(context).load("http://shopgondia.in/gondia_php/graphic_images/image2.jpg").into(vegetableImage);
+        Picasso.with(context).load("http://shopgondia.in/gondia_php/graphic_images/image3.jpg").into(easyOrder);
 
         slideShow.isAutoStart =true
         slideShow.setFlipInterval(5000)
@@ -65,14 +91,10 @@ class MainScreenFragment: Fragment() {
         slideShow.setOutAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_out))
         slideShow.startFlipping()
 
-        vegetableViewAll.setOnClickListener(View.OnClickListener {
-            goToFullView(VegetableScreenFragment())
-        });
-
-        vegetableRecycle?.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        fruitRecycle?.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-
-        initAdapter()
+//        vegetableRecycle?.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+//        fruitRecycle?.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+//
+//        initAdapter()
 
 
     }

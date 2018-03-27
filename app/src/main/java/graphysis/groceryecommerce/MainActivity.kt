@@ -4,6 +4,9 @@ package graphysis.groceryecommerce
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
+import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -52,12 +55,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         request = Volley.newRequestQueue(applicationContext);
 
-        Fab.setOnClickListener(View.OnClickListener { view ->
-            var intent = Intent()
-            intent.action = Intent.ACTION_DIAL;
-            intent.data= Uri.parse("tel:9172977934");
-            startActivity(intent)
-        })
 
 
         val toggle = ActionBarDrawerToggle(
@@ -84,6 +81,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
+        var  itemCart = menu.findItem(R.id.action_cart);
+        var icon = itemCart.getIcon() as LayerDrawable;
+        DataStorageClass.icon = icon;
         return true
     }
 
@@ -92,8 +92,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.sign_out ->{
-                clearData();
+            R.id.easyOrder ->{
+                var fragmentManager =supportFragmentManager;
+                var fragmentTransaction: FragmentTransaction? = fragmentManager.beginTransaction();
+                var fragment: Fragment =EasyOrderFragment();
+                fragmentTransaction?.replace(R.id.show_all_fragments,fragment)?.addToBackStack(null)
+                fragmentTransaction?.commit();
+
+                return true
+            }
+
+            R.id.call->{
+                var intent = Intent()
+                intent.action = Intent.ACTION_DIAL;
+                intent.data= Uri.parse("tel:9975211752");
+                startActivity(intent)
+                return true
+            }
+            R.id.action_cart->{
+                var fragmentManager =supportFragmentManager;
+                var fragmentTransaction: FragmentTransaction? = fragmentManager.beginTransaction();
+                var fragment: Fragment = CheckOutFragment();
+                fragmentTransaction?.replace(R.id.show_all_fragments,fragment)?.addToBackStack(null)
+                fragmentTransaction?.commit();
+
                 return true
             }
 
@@ -130,8 +152,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 fragment =PendingCompletedFragment()
             }
             R.id.feedback->{
-                sendEmail()
-                return true
+                fragment = MainScreenFragment();
+                shareToGMail()
             }
         }
         fragmentTransaction?.replace(R.id.show_all_fragments,fragment)
@@ -238,12 +260,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for shopGondia app")
 
         try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."))
+            startActivity(emailIntent);
             finish()
         } catch (ex: android.content.ActivityNotFoundException) {
             Toast.makeText(this@MainActivity, "There is no email client installed.", Toast.LENGTH_SHORT).show()
         }
 
     }
+
+
+    fun shareToGMail() {
+        val TO = arrayOf("tarun.manuja@gmail.com")
+        val CC = arrayOf("")
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.data = Uri.parse("mailto:")
+        emailIntent.type = "text/plain"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO)
+        emailIntent.putExtra(Intent.EXTRA_CC, CC)
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for shopGondia app")
+        val pm: PackageManager = getPackageManager();
+        val  matches:List<ResolveInfo> = pm.queryIntentActivities(emailIntent, 0);
+        var best: ResolveInfo? =null ;
+        for(info:ResolveInfo in matches)
+            if (info.activityInfo.packageName.endsWith(".gm") || info.activityInfo.name.toLowerCase().contains("gmail"))
+                best = info;
+        if (best != null){
+            emailIntent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+            startActivity(emailIntent);
+        }
+        else{
+            sendEmail();
+        }
+
+    }
+
+
 
 }

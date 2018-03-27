@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.graphics.drawable.LayerDrawable
 import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
@@ -27,6 +28,14 @@ class DataStorageClass(val context: Context?, val name:String, val version:Int) 
         onCreate(p0);
     }
 
+    fun Increment(){
+        var db:SQLiteDatabase = this.readableDatabase;
+
+        val select = "SELECT * FROM Orders"
+        var cursor: Cursor = db.rawQuery(select,null);
+
+        context?.IncrementCart(DataStorageClass.icon,cursor.count.toString())
+    }
     fun AddOrderID(keyword:String,cost:String,quantity:String){
 
         Log.d("hello",keyword+"  "+cost+"  "+quantity)
@@ -37,10 +46,9 @@ class DataStorageClass(val context: Context?, val name:String, val version:Int) 
         contentvalues.put("keyword",keyword);
         contentvalues.put("quantity",quantity);
         contentvalues.put("cost",cost);
-
         db.insert("Orders",null,contentvalues);
-
         db.close()
+        Increment()
     }
 
     fun UpdateOrderID(keyword:String,cost:String,quantity:String){
@@ -59,11 +67,13 @@ class DataStorageClass(val context: Context?, val name:String, val version:Int) 
         var db:SQLiteDatabase = this.writableDatabase;
         db.execSQL("delete from Orders where keyword='"+id+"'")
         db.close()
+        Increment()
     }
 
     fun deleteAllOrder(){
         var db:SQLiteDatabase = this.writableDatabase;
         db.execSQL("delete from Orders");
+        Increment()
     }
 
     fun getAllOrder():ArrayList<String>{
@@ -79,7 +89,6 @@ class DataStorageClass(val context: Context?, val name:String, val version:Int) 
 
             }while (cursor.moveToNext())
         }
-
 
         return array;
 
@@ -110,7 +119,8 @@ class DataStorageClass(val context: Context?, val name:String, val version:Int) 
         var fruits:JSONArray =JSONArray();
         var vegetable: JSONArray =JSONArray();
         var current:JSONObject = JSONObject();
-        var checkout:ArrayList<JSONObject> = ArrayList();
+        var checkout:ArrayList<JSONObject> = ArrayList()
+        lateinit  var icon:LayerDrawable;
 
         fun inflateData(data:JSONArray){
 

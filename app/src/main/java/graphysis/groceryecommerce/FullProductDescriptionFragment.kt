@@ -52,5 +52,6 @@ class FullProductDescriptionFragment: Fragment() {
 
 
 
+
     }
 }
