@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="-10dp"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="6dp"
-    android:id="@+id/cardview"
-    style="@style/cardView">
+    android:layout_marginTop="10dp"
+    app:cardElevation="4dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,8 +19,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_margin="10dp"
                 android:id="@+id/product_image"
                 android:src="@drawable/ic_launcher_background"/>
@@ -35,7 +36,7 @@
                     style="@style/headings"
                     />
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="-10dp"
@@ -46,7 +47,7 @@
                         android:text="Breed"
                         style="@style/subheadings"
                         android:id="@+id/product_breed"
-                        android:layout_weight="1"
+
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -56,12 +57,27 @@
                         android:id="@+id/product_quantity"
                         android:layout_marginRight="10dp"
                         />
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rs 21"
+                            android:id="@+id/product_price"
+                            style="@style/subheadings"
+                            android:layout_marginRight="20dp"
+                            android:layout_alignParentEnd="true"/>
+                    </RelativeLayout>
+
+
                 </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Amount:Rs 21"
-                    android:id="@+id/product_price"
+                    android:id="@+id/productDate"
                     style="@style/subheadings"/>
 
             </LinearLayout>
@@ -74,25 +90,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/subheadings"
-            android:gravity="center_horizontal"
-            android:id="@+id/productDate"
-            android:text="OrderPlaced Successfully"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimary"></View>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             style="@style/headings"
             android:gravity="center_horizontal"
             android:id="@+id/product_status"
             android:text="OrderPlaced Successfully"
             />
-
-
     </LinearLayout>
 
 

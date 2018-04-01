@@ -21,7 +21,7 @@ import org.json.JSONObject
 class VegetableScreenFragment:Fragment() {
     lateinit var adapter:VerticalRecyclerViewAdapter;
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.vertical_product_layout,container,false);
+        return inflater?.inflate(R.layout.vertical_product_layout_vegetable,container,false);
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

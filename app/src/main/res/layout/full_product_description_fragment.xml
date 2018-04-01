@@ -24,23 +24,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="-15dp"
                 >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Breed"
-                    style="@style/subheadings"
-                    android:id="@+id/product_breed"
-                    android:layout_weight="1"
-                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1 Kg"
                     style="@style/subheadings"
                     android:id="@+id/product_quantity"
-                    android:layout_marginRight="10dp"
+
                     />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Breed"
+                    style="@style/subheadings"
+                    android:id="@+id/product_breed"
+                    />
+
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -55,7 +56,13 @@
                     android:layout_centerHorizontal="true"
                     />
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_margin="5dp"
+                android:background="#cccccc">
 
+            </View>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,6 +78,13 @@
                     android:id="@+id/product_price"
                     />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_margin="5dp"
+                android:background="#cccccc">
+
+            </View>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,6 +98,7 @@
                 android:id="@+id/product_description"
                 style="@style/subheadings"
                 android:textSize="14sp"
+                android:layout_marginLeft="20dp"
                 android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 />
             <!--<LinearLayout-->
