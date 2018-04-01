@@ -41,7 +41,7 @@ class ProfileScreenFragment :Fragment() {
         user_name.text=sharedPref.getString("Username", "Default").toString().capitalize();
         user_email.text=sharedPref.getString("Email", "Default").toString().capitalize()
         if (!sharedPref.getString("landmark", "default_value").equals("default_value")){
-            addressProfile.setText(sharedPref.getString("address", "default_value").toString()+"Near to: "+sharedPref.getString("landmark", "default_value").toString())
+            addressProfile.setText(sharedPref.getString("address", "default_value").toString()+" Near to: "+sharedPref.getString("landmark", "default_value").toString())
 
         }
         if(!sharedPref.getString("contact", "default_value").equals("default_value")){

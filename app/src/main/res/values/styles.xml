@@ -17,11 +17,18 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
     <style name="headings" parent="AppTheme">
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">#4d4d4d</item>
         <item name="android:padding">5dp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+
     </style>
 
     <style name="button" parent="AppTheme">
@@ -29,35 +36,53 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-
-    <style name="subheadings" parent="AppTheme">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">#ccc</item>
-        <item name="android:padding">5dp</item>
-    </style>
-
-    <style name="FullscreenTheme" parent="AppTheme">
-        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@null</item>
-        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
-        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
-    </style>
-
     <style name="greenButton" parent="AppTheme">
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:background">@drawable/green_round_button</item>
-        <item name="android:color">#fff</item>
         <item name="android:height">30dp</item>
+        <item name="android:color">#fff</item>
     </style>
+
+    <style name="blackButton" parent="AppTheme">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:background">@drawable/black_round_button</item>
+        <item name="android:height">30dp</item>
+        <item name="android:color">#fff</item>
+    </style>
+    <style name="yellowButton" parent="AppTheme">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:background">@drawable/yellow_round_button</item>
+        <item name="android:height">30dp</item>
+        <item name="android:color">#fff</item>
+    </style>
+
+
+
+    <style name="cardView" parent="AppTheme">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
     <style name="orderTablayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">#ff00ff</item>
     </style>
 
-    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black_overlay</item>
+
+    <style name="subheadings" parent="AppTheme">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#808080</item>
+        <item name="android:padding">5dp</item>
+
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
+
 </resources>

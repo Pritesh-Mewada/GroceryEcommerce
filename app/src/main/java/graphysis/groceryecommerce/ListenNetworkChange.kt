@@ -18,10 +18,10 @@ class ListenNetworkChange : BroadcastReceiver() {
         if(p0!=null){
             if(isNetworkAvailable(p0)==true){
                 Log.d("hello","I am network Broadcast and i am online");
-                p0.ShowToast("I am network Broadcast and i am online");
+                //p0.ShowToast("I am network Broadcast and i am online");
             }else{
                 Log.d("hello","I am network Broadcast and i am offline");
-                p0.ShowToast("I am network Broadcast and i am offline");
+                //p0.ShowToast("I am network Broadcast and i am offline");
             }
         }
 
